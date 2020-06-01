@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace CourseLibrary.API.Controllers
 {
     [ApiController]
+    [Route("api/authors")]
     public class AuthorsController : ControllerBase
     {
         private readonly ICourseLibraryRepository courseLibraryRepository;
@@ -20,7 +21,7 @@ namespace CourseLibrary.API.Controllers
                 ?? throw new ArgumentNullException(nameof(courseLibraryRepository));
         }
 
-        [HttpGet("api/authors")]
+        [HttpGet]
         public IActionResult GetAuthors() 
         {
             var authors = this.courseLibraryRepository.GetAuthors();
