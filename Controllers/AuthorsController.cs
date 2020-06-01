@@ -20,6 +20,7 @@ namespace CourseLibrary.API.Controllers
                 ?? throw new ArgumentNullException(nameof(courseLibraryRepository));
         }
 
+        [HttpGet("api/authors")]
         public IActionResult GetAuthors() 
         {
             var authors = this.courseLibraryRepository.GetAuthors();
