@@ -103,7 +103,7 @@ namespace CourseLibrary.API.DbContexts
                    Id = Guid.Parse("40ff5488-fdab-45b5-bc3a-14302d59869a"),
                    AuthorId = Guid.Parse("2902b665-1190-4c70-9915-b9c2d7680450"),
                    Title = "Singalong Pirate Hits",
-                   Description = "In this course you'll learn how to sing all-time favourite pirate songs without sounding like you actually know the words or how to hold a note."
+                   Description = "In this course you'll learn how to sing all-time favorite pirate songs without sounding like you actually know the words or how to hold a note."
                }
                );
 
