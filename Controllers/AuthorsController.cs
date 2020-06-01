@@ -27,5 +27,12 @@ namespace CourseLibrary.API.Controllers
             var authors = this.courseLibraryRepository.GetAuthors();
             return new JsonResult(authors);
         }
+
+        [HttpGet("{authorId}")]
+        public IActionResult GetAuthors(Guid authorId)
+        {
+            var author = this.courseLibraryRepository.GetAuthor(authorId);
+            return new JsonResult(author);
+        }
     }
 }
