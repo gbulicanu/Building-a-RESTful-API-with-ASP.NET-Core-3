@@ -1,4 +1,6 @@
-﻿using CourseLibrary.API.Helpers;
+﻿using AutoMapper;
+
+using CourseLibrary.API.Helpers;
 using CourseLibrary.API.Models;
 using CourseLibrary.API.Services;
 
@@ -16,11 +18,16 @@ namespace CourseLibrary.API.Controllers
     public class AuthorsController : ControllerBase
     {
         private readonly ICourseLibraryRepository courseLibraryRepository;
+        private readonly IMapper mapper;
 
-        public AuthorsController(ICourseLibraryRepository courseLibraryRepository)
+        public AuthorsController(
+            ICourseLibraryRepository courseLibraryRepository,
+            IMapper mapper)
         {
             this.courseLibraryRepository = courseLibraryRepository
                 ?? throw new ArgumentNullException(nameof(courseLibraryRepository));
+            this.mapper = mapper
+                ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
@@ -28,18 +35,7 @@ namespace CourseLibrary.API.Controllers
         {
             var authors = this.courseLibraryRepository.GetAuthors();
 
-            var authorsDtos = new List<AuthorDto>(); 
-            foreach (var author in authors)
-            {
-                authorsDtos.Add(new AuthorDto
-                {
-                    Id = author.Id,
-                    Name = $"{author.FirstName} {author.LastName}",
-                    Age = author.DateOfBirth.GetCurrentAge(),
-                    MainCategory = author.MainCategory
-                });
-            }
-            return Ok(authorsDtos);
+            return Ok(this.mapper.Map<IEnumerable<AuthorDto>>(authors));
         }
 
         [HttpGet("{authorId}")]
@@ -52,15 +48,7 @@ namespace CourseLibrary.API.Controllers
                 return NotFound();
             }
 
-            var authorDto = new AuthorDto
-            {
-                Id = author.Id,
-                Name = $"{author.FirstName} {author.LastName}",
-                Age = author.DateOfBirth.GetCurrentAge(),
-                MainCategory = author.MainCategory
-            };
-
-            return Ok(authorDto);
+            return Ok(this.mapper.Map<AuthorDto>(author));
         }
     }
 }
