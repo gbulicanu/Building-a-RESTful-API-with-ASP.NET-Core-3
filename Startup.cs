@@ -1,13 +1,17 @@
+using AutoMapper;
+
 using CourseLibrary.API.DbContexts;
 using CourseLibrary.API.Services;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
+using System;
 
 namespace CourseLibrary.API
 {
@@ -29,6 +33,8 @@ namespace CourseLibrary.API
                    configure.ReturnHttpNotAcceptable = true;
                    configure.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
                });
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
              
             services.AddScoped<ICourseLibraryRepository, CourseLibraryRepository>();
 
