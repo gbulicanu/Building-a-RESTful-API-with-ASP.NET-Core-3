@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 
-using CourseLibrary.API.Helpers;
 using CourseLibrary.API.Models;
 using CourseLibrary.API.Services;
 
@@ -8,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CourseLibrary.API.Controllers
 {
@@ -31,7 +28,8 @@ namespace CourseLibrary.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<AuthorDto>> GetAuthors() 
+        [HttpHead]
+        public ActionResult<IEnumerable<AuthorDto>> GetAuthors()
         {
             var authors = this.courseLibraryRepository.GetAuthors();
 
