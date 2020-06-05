@@ -29,9 +29,9 @@ namespace CourseLibrary.API.Controllers
 
         [HttpGet]
         [HttpHead]
-        public ActionResult<IEnumerable<AuthorDto>> GetAuthors(string mainCategory)
+        public ActionResult<IEnumerable<AuthorDto>> GetAuthors(string mainCategory, string searchQuery)
         {
-            var authors = this.courseLibraryRepository.GetAuthors(mainCategory);
+            var authors = this.courseLibraryRepository.GetAuthors(mainCategory, searchQuery);
 
             return Ok(this.mapper.Map<IEnumerable<AuthorDto>>(authors));
         }
