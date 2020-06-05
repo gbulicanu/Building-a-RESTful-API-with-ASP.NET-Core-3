@@ -30,7 +30,8 @@ namespace CourseLibrary.API.Controllers
 
         [HttpGet]
         [HttpHead]
-        public ActionResult<IEnumerable<AuthorDto>> GetAuthors(AuthorsResourseParameters authorsResourseParameters)
+        public ActionResult<IEnumerable<AuthorDto>> GetAuthors(
+            [FromQuery] AuthorsResourseParameters authorsResourseParameters)
         {
             var authors = this.courseLibraryRepository.GetAuthors(authorsResourseParameters);
 
