@@ -13,6 +13,8 @@ namespace CourseLibrary.API.Profiles
                 options => options.MapFrom(source => $"{source.FirstName} {source.LastName}"))
                 .ForMember(destination => destination.Age,
                 options => options.MapFrom(source => source.DateOfBirth.GetCurrentAge()));
+
+            CreateMap<Models.AuthotForCreateDto, Entities.Author>();
         }
     }
 }

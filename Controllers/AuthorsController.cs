@@ -38,7 +38,7 @@ namespace CourseLibrary.API.Controllers
             return Ok(this.mapper.Map<IEnumerable<AuthorDto>>(authors));
         }
 
-        [HttpGet("{authorId}")]
+        [HttpGet("{authorId}", Name = nameof(GetAuthors))]
         public ActionResult<AuthorDto> GetAuthors(Guid authorId)
         {
             var author = this.courseLibraryRepository.GetAuthor(authorId);
@@ -49,6 +49,20 @@ namespace CourseLibrary.API.Controllers
             }
 
             return Ok(this.mapper.Map<AuthorDto>(author));
+        }
+
+        [HttpPost]
+        public ActionResult<AuthorDto> CreateAuthor(AuthotForCreateDto author) 
+        {
+            var authorEntity = this.mapper.Map<Entities.Author>(author);
+            this.courseLibraryRepository.AddAuthor(authorEntity);
+            this.courseLibraryRepository.Save();
+
+            var authorToReturn = this.mapper.Map<AuthorDto>(authorEntity);
+            return CreatedAtRoute(
+                nameof(GetAuthors),
+                new { authorId = authorToReturn.Id },
+                authorToReturn);
         }
     }
 }
