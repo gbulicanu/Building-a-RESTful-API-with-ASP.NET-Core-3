@@ -138,7 +138,7 @@ namespace CourseLibrary.API.Services
                 collection = collection.Where(a => a.MainCategory == mainCategory);
             }
 
-            if (string.IsNullOrWhiteSpace(searchQuery))
+            if (!string.IsNullOrWhiteSpace(searchQuery))
             {
                 searchQuery = searchQuery.Trim();
                 collection = collection.Where(a => a.MainCategory.Contains(searchQuery)
