@@ -1,5 +1,7 @@
 ﻿using CourseLibrary.API.DbContexts;
-using CourseLibrary.API.Entities; 
+using CourseLibrary.API.Entities;
+using CourseLibrary.API.ResourceParameters;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -122,25 +124,30 @@ namespace CourseLibrary.API.Services
             return _context.Authors.ToList<Author>();
         }
 
-        public IEnumerable<Author> GetAuthors(string mainCategory, string searchQuery)
+        public IEnumerable<Author> GetAuthors(AuthorsResourseParameters authorsResourseParameters)
         {
-            if (string.IsNullOrWhiteSpace(mainCategory)
-                && string.IsNullOrWhiteSpace(searchQuery))
+            if(authorsResourseParameters is null)
+            {
+                throw new ArgumentNullException(nameof(authorsResourseParameters));
+            }
+
+            if (string.IsNullOrWhiteSpace(authorsResourseParameters.MainCategory)
+                && string.IsNullOrWhiteSpace(authorsResourseParameters.SearchQuery))
             {
                 return GetAuthors();
             }
 
             var collection = _context.Authors.AsQueryable<Author>();
 
-            if (!string.IsNullOrWhiteSpace(mainCategory))
+            if (!string.IsNullOrWhiteSpace(authorsResourseParameters.MainCategory))
             {
-                mainCategory = mainCategory.Trim();
+                var mainCategory = authorsResourseParameters.MainCategory.Trim();
                 collection = collection.Where(a => a.MainCategory == mainCategory);
             }
 
-            if (!string.IsNullOrWhiteSpace(searchQuery))
+            if (!string.IsNullOrWhiteSpace(authorsResourseParameters.SearchQuery))
             {
-                searchQuery = searchQuery.Trim();
+                var searchQuery = authorsResourseParameters.SearchQuery.Trim();
                 collection = collection.Where(a => a.MainCategory.Contains(searchQuery)
                     || a.FirstName.Contains(searchQuery)
                     || a.LastName.Contains(searchQuery));
