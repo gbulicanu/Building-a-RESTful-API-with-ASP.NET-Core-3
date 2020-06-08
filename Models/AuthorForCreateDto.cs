@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CourseLibrary.API.Models
 {
-    public class AuthotForCreateDto
+    public class AuthorForCreateDto
     {
         public string FirstName { get; set; }
         

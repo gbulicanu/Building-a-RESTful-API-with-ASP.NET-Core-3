@@ -28,7 +28,7 @@ namespace CourseLibrary.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<IEnumerable<AuthorDto>> CreateAuthorCollection(IEnumerable<AuthotForCreateDto> authors) 
+        public ActionResult<IEnumerable<AuthorDto>> CreateAuthorCollection(IEnumerable<AuthorForCreateDto> authors) 
         {
             var authorEntities = this.mapper.Map<IEnumerable<Entities.Author>>(authors);
             foreach (var author in authorEntities) 

@@ -52,7 +52,7 @@ namespace CourseLibrary.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<AuthorDto> CreateAuthor(AuthotForCreateDto author) 
+        public ActionResult<AuthorDto> CreateAuthor(AuthorForCreateDto author) 
         {
             var authorEntity = this.mapper.Map<Entities.Author>(author);
             this.courseLibraryRepository.AddAuthor(authorEntity);
