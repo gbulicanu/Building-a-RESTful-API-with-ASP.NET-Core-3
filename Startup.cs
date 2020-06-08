@@ -32,8 +32,7 @@ namespace CourseLibrary.API
                configure =>
                {
                    configure.ReturnHttpNotAcceptable = true;
-                   configure.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
-               });
+               }).AddXmlDataContractSerializerFormatters();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
              
