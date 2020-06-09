@@ -1,6 +1,5 @@
 ﻿using CourseLibrary.API.Validation;
 
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CourseLibrary.API.Models
