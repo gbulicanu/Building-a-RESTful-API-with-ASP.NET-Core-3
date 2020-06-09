@@ -5,14 +5,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CourseLibrary.API.Models
 {
-    [CourseTitleMustBeDifferntFromDescription]
+    [CourseTitleMustBeDifferntFromDescription(
+        ErrorMessage = "Title must be differnet from description.")]
     public class CourseForCreateDto //: IValidatableObject
     {
-        [Required]
-        [MaxLength(100)]
+        [Required(ErrorMessage = "You should fill out a title.")]
+        [MaxLength(100, ErrorMessage = "The title shouldn't have more than 100 characters.")]
         public string Title { get; set; }
 
-        [MaxLength(1500)]
+        [MaxLength(1500, ErrorMessage = "The description shouldn't have more than 1500 characters.")]
         public string Description { get; set; }
 
         //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
