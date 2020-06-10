@@ -94,7 +94,8 @@ namespace CourseLibrary.API.Controllers
 
             this.mapper.Map(course, courseEntity);
             this.courseLibraryRepository.UpdateCourse(courseEntity);
-            return Ok();
+            this.courseLibraryRepository.Save();
+            return NoContent();
         }
     }
 }
