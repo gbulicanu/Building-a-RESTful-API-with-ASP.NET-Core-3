@@ -10,12 +10,12 @@ namespace CourseLibrary.API.Validation
             object value,
             ValidationContext validationContext)
         {
-            var course = (CourseForCreateDto)validationContext.ObjectInstance;
+            var course = (CourseForManipulateDto)validationContext.ObjectInstance;
             if (course.Title == course.Description)
             {
                 return new ValidationResult(
                     ErrorMessage,
-                    new[] { nameof(CourseForCreateDto) });
+                    new[] { nameof(CourseForManipulateDto) });
             }
 
             return ValidationResult.Success;
