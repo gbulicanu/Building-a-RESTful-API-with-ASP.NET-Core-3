@@ -3,6 +3,7 @@
 using CourseLibrary.API.Models;
 using CourseLibrary.API.Services;
 
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 using System;
@@ -108,5 +109,33 @@ namespace CourseLibrary.API.Controllers
             this.courseLibraryRepository.Save();
             return NoContent();
         }
+
+        [HttpPatch("{courseId}")]
+        public ActionResult PartiallyUpdateCourseForAuthor(
+            Guid authorId,
+            Guid courseId,
+            JsonPatchDocument<CourseForUpdateDto> patchDocument)
+        {
+            if (!this.courseLibraryRepository.AuthorExists(authorId))
+            {
+                return NotFound();
+            }
+
+            var courseEntity = this.courseLibraryRepository.GetCourse(authorId, courseId);
+            if (courseEntity == null) 
+            {
+                return NotFound();
+            }
+
+            var courseToPatch = this.mapper.Map<CourseForUpdateDto>(courseEntity);
+            // TODO: Add patch validation.
+            patchDocument.ApplyTo(courseToPatch);
+            this.mapper.Map(courseToPatch, courseEntity);
+            this.courseLibraryRepository.UpdateCourse(courseEntity);
+            this.courseLibraryRepository.Save();
+
+            return NoContent();
+        }
+
     }
 }
