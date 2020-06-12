@@ -128,8 +128,11 @@ namespace CourseLibrary.API.Controllers
             }
 
             var courseToPatch = this.mapper.Map<CourseForUpdateDto>(courseEntity);
-            // TODO: Add patch validation.
             patchDocument.ApplyTo(courseToPatch);
+            if (!TryValidateModel(courseToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
             this.mapper.Map(courseToPatch, courseEntity);
             this.courseLibraryRepository.UpdateCourse(courseEntity);
             this.courseLibraryRepository.Save();
