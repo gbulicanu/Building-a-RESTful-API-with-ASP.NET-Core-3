@@ -5,7 +5,5 @@ namespace CourseLibrary.API.Models
 {
     public class CourseForCreateDto : CourseForManipulateDto
     {
-        [Required]
-        public override string Description { get => base.Description; set => base.Description = value; }
     }
 }
