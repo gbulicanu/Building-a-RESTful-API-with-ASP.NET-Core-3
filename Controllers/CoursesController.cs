@@ -129,7 +129,11 @@ namespace CourseLibrary.API.Controllers
             if (courseEntity == null) 
             {
                 var courseDto = new CourseForUpdateDto();
-                patchDocument.ApplyTo(courseDto);
+                patchDocument.ApplyTo(courseDto, ModelState);
+                if (!TryValidateModel(courseDto))
+                {
+                    return ValidationProblem(ModelState);
+                }
                 var courseToAdd = this.mapper.Map<Entities.Course>(courseDto);
                 courseToAdd.Id = courseId;
 
