@@ -128,7 +128,20 @@ namespace CourseLibrary.API.Controllers
             var courseEntity = this.courseLibraryRepository.GetCourse(authorId, courseId);
             if (courseEntity == null) 
             {
-                return NotFound();
+                var courseDto = new CourseForUpdateDto();
+                patchDocument.ApplyTo(courseDto);
+                var courseToAdd = this.mapper.Map<Entities.Course>(courseDto);
+                courseToAdd.Id = courseId;
+
+                this.courseLibraryRepository.AddCourse(authorId, courseToAdd);
+                this.courseLibraryRepository.Save();
+
+                var courseToReturn = this.mapper.Map<CourseDto>(courseToAdd);
+
+                return CreatedAtRoute(
+                    nameof(GetCourseForAuthor),
+                    new { authorId, courseId = courseToReturn.Id },
+                    courseToReturn);
             }
 
             var courseToPatch = this.mapper.Map<CourseForUpdateDto>(courseEntity);
